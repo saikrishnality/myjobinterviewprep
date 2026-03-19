@@ -1,74 +1,109 @@
 # Job Interview Prep
-## Deployment Guide — Vercel (Free, 60-second timeout)
+## Deployment Guide — Render.com (Free, No Timeout)
 
 ---
 
 ### File Structure
 ```
-jobinterviewprep-vercel/
-  api/
-    generate.js     ← Serverless function (Claude API call, 60s timeout)
-  index.html        ← Frontend
-  vercel.json       ← Routing + timeout config
+jobinterviewprep-render/
+  public/
+    index.html      ← Frontend
+  server.js         ← Express server (handles /generate route)
+  package.json      ← Dependencies
   README.md         ← This file
 ```
 
 ---
 
-### Step 1 — Create a Vercel Account
-Go to https://vercel.com and sign up. Use GitHub or Google — either works. Free.
+### Why Render instead of Vercel or Netlify?
+Both Vercel and Netlify free tiers have a 10-second timeout on backend functions.
+Claude takes 20-30 seconds to generate a brief.
+Render runs a persistent server — no timeout limit. Free tier.
 
 ---
 
-### Step 2 — Deploy
+### Step 1 — Push to GitHub
+Your files need to be in a GitHub repository.
 
-1. Go to https://vercel.com/new
-2. Click "Browse" or drag the jobinterviewprep-vercel folder
-3. Click Deploy
-4. Wait ~30 seconds
+Option A — Update your existing myjobinterviewprep repo:
+1. Go to github.com/saikrishnality/myjobinterviewprep
+2. Delete all existing files
+3. Upload the three items from this folder:
+   - server.js
+   - package.json
+   - public/ folder (containing index.html)
 
----
-
-### Step 3 — Set Your API Key (CRITICAL)
-
-1. Go to your project in Vercel dashboard
-2. Click Settings → Environment Variables
-3. Click Add
-   - Name:   ANTHROPIC_API_KEY
-   - Value:  your Claude API key (starts with sk-ant-)
-   - Check all three environments: Production, Preview, Development
-4. Click Save
+Option B — Create a new repository called jobinterviewprep-render
+and upload these files there.
 
 ---
 
-### Step 4 — Redeploy to activate the key
-
-1. Click Deployments in the left menu
-2. Click the three dots next to your latest deployment
-3. Click Redeploy
-4. Wait ~30 seconds
+### Step 2 — Create a Render account
+Go to https://render.com and sign up free.
+Use GitHub login — easiest.
 
 ---
 
-### Step 5 — Set a clean URL
-
-1. Go to Settings → Domains
-2. Your default URL is something like jobinterviewprep-vercel.vercel.app
-3. You can customise the subdomain here for free
-
----
-
-### Step 6 — Test
-
-Open your URL on mobile, upload your CV, enter a company name, click Generate.
-Brief should appear in 20-30 seconds. No timeout errors on Vercel free tier.
+### Step 3 — Create a new Web Service
+1. Click "New +" in the top right
+2. Select "Web Service"
+3. Connect your GitHub account if prompted
+4. Find and select your repository
+5. Click "Connect"
 
 ---
 
-### Why Vercel instead of Netlify?
-Vercel free tier allows 60-second function timeout.
-Netlify free tier only allows 10 seconds.
-Claude takes 20-30 seconds. Netlify times out. Vercel does not.
+### Step 4 — Configure the service
+Fill in these settings exactly:
+
+Name:             jobinterviewprep
+Region:           Singapore (closest to India)
+Branch:           main
+Runtime:          Node
+Build Command:    npm install
+Start Command:    node server.js
+Instance Type:    Free
+
+Leave everything else as default.
+
+---
+
+### Step 5 — Add your API key
+Before clicking Deploy, scroll down to "Environment Variables".
+Click "Add Environment Variable":
+  Key:    ANTHROPIC_API_KEY
+  Value:  your Claude API key (starts with sk-ant-)
+
+Click "Add".
+
+---
+
+### Step 6 — Deploy
+Click "Create Web Service".
+Render will install dependencies and start your server.
+Takes about 2-3 minutes.
+
+---
+
+### Step 7 — Get your URL
+Once deployed you will see:
+https://jobinterviewprep.onrender.com
+(or similar — Render generates the subdomain from your service name)
+
+Open it on your phone and test.
+
+---
+
+### Important — Cold Start
+Render free tier sleeps after 15 minutes of inactivity.
+First request after sleep takes 30-50 seconds to wake up.
+All requests after that are instant.
+For beta with 5 users this is acceptable.
+
+---
+
+### Updating the tool
+Push changes to GitHub → Render auto-deploys within 2 minutes.
 
 ---
 

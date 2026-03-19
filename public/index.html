@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Job Interview Prep — Interview Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400;500&family=Geist:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07090f;--surface:#0d1117;--surface2:#131920;--surface3:#1a2230;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);
+  --text:#dde4ee;--muted:#5a6a7e;
+  --amber:#d4a843;--amber-dim:rgba(212,168,67,0.10);--amber-border:rgba(212,168,67,0.25);
+  --teal:#3eb8a0;--teal-dim:rgba(62,184,160,0.09);
+  --red:#e05252;--red-dim:rgba(224,82,82,0.09);
+  --green:#3eb87a;--green-dim:rgba(62,184,122,0.09);
+  --blue:#4f8ef7;--blue-dim:rgba(79,142,247,0.09);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);font-family:'Geist',sans-serif;color:var(--text);min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(212,168,67,0.014) 1px,transparent 1px),linear-gradient(90deg,rgba(212,168,67,0.014) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;z-index:0;}
+.screen{display:none;position:relative;z-index:1;}
+.screen.active{display:block;}
+
+/* ─── LANDING ─── */
+#screen-landing{min-height:100vh;display:none;flex-direction:column;}
+#screen-landing.active{display:flex;}
+.landing-nav{display:flex;align-items:center;justify-content:space-between;padding:28px 48px;border-bottom:1px solid var(--border);}
+.logo-mark{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.18em;color:var(--amber);text-transform:uppercase;display:flex;align-items:center;gap:10px;}
+.logo-mark::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--amber);box-shadow:0 0 10px var(--amber);}
+.nav-tag{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;}
+.landing-hero{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 48px;text-align:center;}
+.hero-eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:24px;display:flex;align-items:center;gap:12px;}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';width:40px;height:1px;background:var(--border2);}
+.hero-headline{font-family:'Instrument Serif',serif;font-size:clamp(42px,6vw,72px);font-weight:400;line-height:1.05;letter-spacing:-.02em;color:#fff;margin-bottom:8px;}
+.hero-headline em{font-style:italic;color:var(--amber);}
+.hero-sub{font-size:15px;color:var(--muted);line-height:1.7;max-width:460px;margin:20px auto 48px;}
+.cta-btn{background:var(--amber);color:#07090f;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:14px 36px;border-radius:8px;border:none;cursor:pointer;transition:all .2s;font-weight:500;}
+.cta-btn:hover{background:#e0b84d;transform:translateY(-1px);}
+.hero-cred{margin-top:48px;display:flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.08em;}
+.hero-cred span{color:var(--text);}
+.hero-cred-dot{width:3px;height:3px;border-radius:50%;background:var(--muted);}
+
+/* ─── WIZARD ─── */
+#screen-wizard{min-height:100vh;display:none;flex-direction:column;}
+#screen-wizard.active{display:flex;}
+.wizard-nav{display:flex;align-items:center;justify-content:space-between;padding:24px 48px;border-bottom:1px solid var(--border);}
+.wizard-back{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:8px;transition:color .2s;}
+.wizard-back:hover{color:var(--text);}
+.wizard-progress{display:flex;align-items:center;gap:8px;}
+.wp-dot{width:8px;height:8px;border-radius:50%;background:var(--border2);transition:all .3s;}
+.wp-dot.active{background:var(--amber);box-shadow:0 0 8px rgba(212,168,67,.5);}
+.wp-dot.done{background:var(--amber);opacity:.4;}
+.wizard-step-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;}
+.wizard-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 48px;}
+.wstep{display:none;width:100%;max-width:680px;}
+.wstep.active{display:block;}
+.step-q{font-family:'Instrument Serif',serif;font-size:clamp(28px,4vw,40px);font-weight:400;color:#fff;margin-bottom:8px;line-height:1.15;}
+.step-hint{font-size:13px;color:var(--muted);margin-bottom:40px;line-height:1.6;}
+.step-next{margin-top:32px;display:flex;align-items:center;justify-content:space-between;}
+.btn-next{background:var(--amber);color:#07090f;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:12px 28px;border-radius:8px;border:none;cursor:pointer;font-weight:500;transition:all .2s;}
+.btn-next:hover:not(:disabled){background:#e0b84d;}
+.btn-next:disabled{opacity:.35;cursor:not-allowed;}
+.btn-skip{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);background:none;border:none;cursor:pointer;letter-spacing:.1em;transition:color .2s;}
+.btn-skip:hover{color:var(--text);}
+
+/* WORKFLOW CARDS */
+.wf-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:8px;}
+.wf-card{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:24px 20px;cursor:pointer;transition:all .25s;text-align:left;}
+.wf-card:hover{border-color:var(--border2);background:var(--surface2);}
+.wf-card.selected{border-color:var(--amber);background:var(--amber-dim);}
+.wf-card.disabled-wf{opacity:.5;cursor:not-allowed;}
+.wf-icon{width:36px;height:36px;border-radius:8px;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;margin-bottom:14px;}
+.wf-card.selected .wf-icon{background:var(--amber-dim);border-color:var(--amber-border);}
+.wf-title{font-size:13px;font-weight:500;color:#fff;margin-bottom:6px;}
+.wf-desc{font-size:11px;color:var(--muted);line-height:1.5;}
+.wf-badge{font-family:'DM Mono',monospace;font-size:9px;padding:2px 8px;border-radius:100px;margin-top:10px;display:inline-block;}
+.badge-live{background:rgba(62,184,122,.12);color:#3eb87a;border:1px solid rgba(62,184,122,.25);}
+.badge-soon{background:var(--surface3);color:var(--muted);border:1px solid var(--border);}
+
+/* FORM */
+.field-group{margin-bottom:20px;}
+.field-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+.field-optional{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);opacity:.6;letter-spacing:.06em;}
+.field-input{width:100%;background:var(--surface);border:1px solid var(--border2);border-radius:8px;padding:12px 16px;font-size:13px;color:var(--text);font-family:'Geist',sans-serif;outline:none;transition:border-color .2s;}
+.field-input:focus{border-color:var(--amber);}
+.field-input::placeholder{color:var(--muted);}
+.field-textarea{resize:vertical;min-height:100px;line-height:1.6;}
+.field-select{appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235a6a7e' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;}
+.field-select option{background:#0d1117;}
+.other-text{display:none;margin-top:8px;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.field-tip{font-size:11px;color:var(--muted);margin-top:6px;line-height:1.5;display:flex;gap:6px;align-items:flex-start;}
+.field-tip::before{content:'💡';font-size:11px;flex-shrink:0;}
+
+/* UPLOAD */
+.upload-zone{border:1.5px dashed var(--border2);border-radius:12px;padding:40px;text-align:center;cursor:pointer;transition:all .25s;position:relative;}
+.upload-zone:hover{border-color:var(--amber);background:var(--amber-dim);}
+.upload-zone.has-file{border-color:var(--green);background:var(--green-dim);border-style:solid;}
+.upload-icon{font-size:28px;margin-bottom:12px;}
+.upload-title{font-size:14px;font-weight:500;color:#fff;margin-bottom:4px;}
+.upload-sub{font-size:12px;color:var(--muted);}
+.upload-formats{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);margin-top:8px;letter-spacing:.08em;}
+.upload-input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.privacy-note{margin-top:14px;display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);}
+.privacy-note::before{content:'🔒';font-size:12px;}
+.file-chosen{display:flex;align-items:center;gap:10px;margin-top:12px;padding:10px 14px;background:var(--surface);border:1px solid rgba(62,184,122,.25);border-radius:8px;}
+.file-name{font-family:'DM Mono',monospace;font-size:11px;color:var(--green);}
+.file-remove{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);background:none;border:none;cursor:pointer;margin-left:auto;transition:color .2s;}
+.file-remove:hover{color:var(--red);}
+
+/* RADIO */
+.radio-group{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+.radio-opt{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;background:var(--surface);border:1.5px solid var(--border);border-radius:10px;cursor:pointer;transition:all .2s;}
+.radio-opt:hover{border-color:var(--border2);}
+.radio-opt.selected{border-color:var(--amber);background:var(--amber-dim);}
+.radio-dot{width:16px;height:16px;border-radius:50%;border:2px solid var(--border2);flex-shrink:0;margin-top:2px;transition:all .2s;position:relative;}
+.radio-opt.selected .radio-dot{border-color:var(--amber);}
+.radio-opt.selected .radio-dot::after{content:'';position:absolute;inset:3px;border-radius:50%;background:var(--amber);}
+.radio-label{font-size:13px;color:var(--text);line-height:1.4;}
+.radio-label span{font-size:11px;color:var(--muted);display:block;margin-top:2px;}
+.interviewer-fields{padding:14px 16px;background:var(--surface2);border-radius:8px;margin-top:10px;display:none;}
+.interviewer-fields.open{display:block;}
+
+/* ─── GENERATING ─── */
+#screen-generating{min-height:100vh;display:none;flex-direction:column;align-items:center;justify-content:center;}
+#screen-generating.active{display:flex;}
+.gen-logo{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.18em;color:var(--amber);text-transform:uppercase;margin-bottom:48px;}
+.gen-company{font-family:'Instrument Serif',serif;font-size:clamp(24px,3vw,36px);color:#fff;margin-bottom:8px;text-align:center;}
+.gen-role{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.1em;margin-bottom:48px;text-align:center;}
+.gen-steps{display:flex;flex-direction:column;gap:12px;width:100%;max-width:360px;margin-bottom:32px;}
+.gen-step{display:flex;align-items:center;gap:14px;padding:12px 16px;background:var(--surface);border-radius:8px;border:1px solid var(--border);transition:all .4s;}
+.gen-step.active{border-color:var(--amber);background:var(--amber-dim);}
+.gen-step.done{border-color:rgba(62,184,122,.25);background:var(--green-dim);}
+.gs-icon{width:28px;height:28px;border-radius:50%;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;}
+.gen-step.active .gs-icon{animation:spin 1.2s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.gs-label{font-size:12px;color:var(--muted);transition:color .3s;}
+.gen-step.active .gs-label,.gen-step.done .gs-label{color:var(--text);}
+.gen-time{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;}
+.gen-error{margin-top:24px;padding:16px 20px;background:var(--red-dim);border:1px solid rgba(224,82,82,.3);border-radius:8px;font-size:13px;color:var(--red);max-width:400px;text-align:center;display:none;}
+
+/* ─── OUTPUT ─── */
+#screen-output{display:none;min-height:100vh;}
+#screen-output.active{display:block;}
+.output-nav{display:flex;align-items:center;justify-content:space-between;padding:20px 48px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(7,9,15,.94);backdrop-filter:blur(14px);z-index:10;}
+.output-meta{display:flex;flex-direction:column;}
+.output-company-name{font-family:'Instrument Serif',serif;font-size:18px;color:#fff;}
+.output-company-sub{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.08em;margin-top:2px;}
+.output-actions{display:flex;gap:10px;}
+.btn-download{background:var(--amber);color:#07090f;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:9px 20px;border-radius:7px;border:none;cursor:pointer;font-weight:500;transition:all .2s;}
+.btn-download:hover:not(:disabled){background:#e0b84d;}
+.btn-download:disabled{opacity:.5;cursor:wait;}
+.btn-restart{background:transparent;color:var(--muted);font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:9px 20px;border-radius:7px;border:1px solid var(--border2);cursor:pointer;transition:all .2s;}
+.btn-restart:hover{color:var(--text);border-color:var(--amber);}
+.output-body{max-width:860px;margin:0 auto;padding:40px 48px;}
+
+/* OUTPUT SECTIONS */
+.out-section{margin-bottom:20px;background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+.out-section-head{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;cursor:pointer;transition:background .2s;}
+.out-section-head:hover{background:var(--surface2);}
+.out-section-label{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);display:flex;align-items:center;gap:8px;}
+.section-num{color:var(--muted);}
+.out-section-toggle{font-size:11px;color:var(--muted);transition:transform .25s;}
+.out-section.collapsed .out-section-body{display:none;}
+.out-section.collapsed .out-section-toggle{transform:rotate(-90deg);}
+.out-section-body{padding:20px 24px;border-top:1px solid var(--border);}
+
+/* POSITIONING */
+.score-row{display:flex;align-items:baseline;gap:10px;margin-bottom:4px;}
+.score-num{font-family:'Instrument Serif',serif;font-size:52px;color:var(--amber);line-height:1;}
+.score-denom{font-family:'DM Mono',monospace;font-size:13px;color:var(--muted);}
+.score-reason{font-size:15px;color:var(--muted);margin-bottom:20px;line-height:1.7;max-width:560px;}
+.pct-wrap{overflow-x:auto;}
+.pros-cons-table{width:100%;border-collapse:collapse;min-width:480px;}
+.pct-head{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:8px 14px;text-align:left;border-bottom:1px solid var(--border);}
+.pct-head.strength-h{color:var(--green);}
+.pct-head.gap-h{color:var(--red);}
+.pct-row td{padding:11px 14px;font-size:15px;color:#9aaabb;border-bottom:1px solid var(--border);line-height:1.6;vertical-align:top;width:50%;}
+.pct-row:last-child td{border-bottom:none;}
+.pct-row td:first-child{border-right:1px solid var(--border);}
+.str-dot,.gap-dot{width:5px;height:5px;border-radius:50%;display:inline-block;margin-right:7px;position:relative;top:-1px;}
+.str-dot{background:var(--green);}
+.gap-dot{background:var(--red);}
+
+/* HOW TO OPEN */
+.open-intro{padding:14px 16px;background:var(--surface2);border-radius:8px;border-left:2px solid var(--blue);font-size:16px;color:var(--text);line-height:1.8;margin-bottom:20px;}
+.open-subsection{margin-bottom:20px;}
+.open-sub-title{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border);}
+.open-bullet{display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;}
+.ob-marker{width:5px;height:5px;border-radius:50%;background:var(--teal);flex-shrink:0;margin-top:8px;}
+.ob-text{font-size:16px;color:var(--text);line-height:1.8;}
+.ob-text em{font-style:italic;color:var(--amber);}
+.gap-section{margin-top:24px;padding-top:20px;border-top:1px solid var(--border);}
+.gap-title{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:10px;}
+.gap-item{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px;padding:12px 14px;background:var(--red-dim);border-radius:8px;border-left:2px solid var(--red);}
+.gap-marker{font-family:'DM Mono',monospace;font-size:9px;color:var(--red);flex-shrink:0;margin-top:2px;}
+.gap-name-text{font-size:14px;font-weight:500;color:var(--red);margin-bottom:4px;}
+.gap-address-text{font-size:15px;color:#9aaabb;line-height:1.7;}
+.notice-row{margin-top:14px;}
+.notice-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:var(--teal-dim);border:1px solid rgba(62,184,160,.2);border-radius:100px;font-family:'DM Mono',monospace;font-size:10px;color:var(--teal);}
+
+/* KNOW YOUR INTERVIEWER */
+.int-bullet{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--border);}
+.int-bullet:last-child{border-bottom:none;}
+.int-tag{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);min-width:110px;flex-shrink:0;padding-top:3px;}
+.int-val{font-size:15px;color:#9aaabb;line-height:1.7;}
+.int-val strong{color:var(--text);font-weight:500;}
+.int-open-quote{font-size:15px;color:var(--text);line-height:1.8;font-style:italic;padding:10px 14px;background:var(--surface2);border-radius:6px;border-left:2px solid var(--teal);}
+.int-avoid-box{font-size:15px;color:#9aaabb;line-height:1.7;padding:8px 12px;background:var(--red-dim);border-radius:6px;border-left:2px solid var(--red);}
+.int-regen-note{margin-top:14px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);padding:10px 14px;background:var(--surface2);border-radius:6px;}
+
+/* ABOUT COMPANY */
+.company-header{display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+.company-logo-box{width:48px;height:48px;border-radius:10px;background:var(--surface2);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;}
+.company-logo-box img{width:100%;height:100%;object-fit:contain;padding:4px;}
+.company-logo-fallback{font-family:'DM Mono',monospace;font-size:14px;color:var(--muted);}
+.company-header-name{font-family:'Instrument Serif',serif;font-size:20px;color:#fff;}
+.company-header-meta{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);margin-top:3px;letter-spacing:.06em;}
+.company-bullet{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--border);}
+.company-bullet:last-of-type{border-bottom:none;}
+.cb-tag{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);min-width:110px;flex-shrink:0;padding-top:3px;}
+.cb-val{font-size:15px;color:#9aaabb;line-height:1.7;}
+.cb-val strong{color:var(--text);font-weight:500;}
+.lang-pills{display:flex;flex-wrap:wrap;gap:7px;margin-top:6px;}
+.lang-pill{padding:5px 12px;background:var(--surface2);border:1px solid var(--border2);border-radius:100px;font-size:13px;color:var(--text);}
+.lang-pill em{font-style:normal;color:var(--amber);}
+
+/* CONFIDENCE */
+.conf{font-family:'DM Mono',monospace;font-size:8px;padding:1px 5px;border-radius:3px;margin-left:4px;vertical-align:middle;}
+.conf-v{background:rgba(62,184,122,.12);color:var(--green);}
+.conf-i{background:rgba(212,168,67,.10);color:var(--amber);}
+.cite-sup{font-family:'DM Mono',monospace;font-size:9px;color:var(--amber);vertical-align:super;margin-left:1px;cursor:help;border-bottom:1px dashed rgba(212,168,67,.4);}
+
+/* QUESTIONS */
+.question-card{margin-bottom:12px;padding:16px 18px;background:var(--surface2);border-radius:10px;border:1px solid var(--border);}
+.question-card:hover{border-color:var(--border2);}
+.q-num{font-family:'DM Mono',monospace;font-size:9px;color:var(--amber);letter-spacing:.1em;margin-bottom:8px;}
+.q-text{font-size:16px;color:var(--text);line-height:1.8;margin-bottom:10px;}
+.q-signal{display:flex;align-items:flex-start;gap:8px;font-size:14px;color:var(--muted);padding-top:10px;border-top:1px solid var(--border);line-height:1.6;}
+.q-arrow{color:var(--amber);flex-shrink:0;}
+
+/* CITATIONS */
+.cite-item{display:flex;flex-direction:column;gap:4px;padding:10px 0;border-bottom:1px solid var(--border);}
+.cite-item:last-child{border:none;}
+.cite-top{display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
+.cite-n{font-family:'DM Mono',monospace;font-size:10px;color:var(--amber);min-width:28px;}
+.cite-claim{font-size:15px;color:var(--text);}
+.cite-badge{font-family:'DM Mono',monospace;font-size:9px;padding:2px 7px;border-radius:4px;}
+.cb-primary{background:rgba(62,184,122,.1);color:var(--green);}
+.cb-inferred{background:var(--amber-dim);color:var(--amber);}
+.cb-candidate{background:rgba(62,184,160,.1);color:var(--teal);}
+.fresh-b{background:rgba(62,184,122,.08);color:var(--green);}
+.dated-b{background:var(--surface3);color:var(--muted);}
+.cite-url{font-family:'DM Mono',monospace;font-size:10px;color:var(--teal);text-decoration:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:520px;display:block;}
+.cite-url:hover{color:var(--amber);}
+.cite-archive-row{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);}
+
+/* FLAGS */
+.flags-block{background:rgba(212,168,67,.05);border:1px solid var(--amber-border);border-radius:10px;padding:16px 20px;margin-top:8px;}
+.flags-title{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:10px;}
+.flag-line{font-size:14px;color:#9aaabb;line-height:1.7;padding:7px 0;border-bottom:1px solid var(--border);display:flex;gap:8px;}
+.flag-line:last-child{border:none;padding-bottom:0;}
+.flag-icon{color:var(--amber);flex-shrink:0;}
+
+/* FEEDBACK */
+.feedback-block{margin-top:24px;padding:20px;background:var(--surface);border:1px solid var(--border);border-radius:12px;}
+.fb-title{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+.fb-stars{display:flex;gap:8px;margin-bottom:14px;}
+.fb-star{padding:8px 16px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;font-size:14px;color:var(--muted);cursor:pointer;transition:all .2s;font-family:'DM Mono',monospace;}
+.fb-star:hover,.fb-star.selected{border-color:var(--amber);color:var(--amber);background:var(--amber-dim);}
+.fb-input{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:8px;padding:10px 14px;font-size:15px;color:var(--text);font-family:'Geist',sans-serif;outline:none;resize:none;height:70px;transition:border-color .2s;}
+.fb-input:focus{border-color:var(--amber);}
+.fb-input::placeholder{color:var(--muted);}
+
+/* BRIEF TEXT (dynamic content) */
+.brief-text{font-size:15px;color:#9aaabb;line-height:1.7;white-space:pre-wrap;word-break:break-word;}
+
+@media(max-width:700px){
+  .landing-nav,.wizard-nav{padding:20px 24px;}
+  .landing-hero{padding:60px 24px;}
+  .wizard-body{padding:40px 24px;}
+  .output-nav{padding:16px 24px;flex-wrap:wrap;gap:12px;}
+  .output-body{padding:24px;}
+  .wf-cards{grid-template-columns:1fr;}
+  .field-row{grid-template-columns:1fr;}
+  .hero-headline{font-size:36px;}
+  .int-tag,.cb-tag{min-width:80px;}
+  .pct-row td{font-size:13px;}
+}
+
+/* ── PRINT STYLES ── */
+@media print {
+  body { background: #fff !important; color: #1a1a1a !important; font-family: Georgia, serif !important; }
+  #screen-landing, #screen-wizard, #screen-generating { display: none !important; }
+  #screen-output { display: block !important; }
+  .output-nav { display: none !important; }
+  .feedback-block { display: none !important; }
+  .out-section-toggle { display: none !important; }
+  .out-section.collapsed .out-section-body { display: block !important; }
+  body::before { display: none !important; }
+  .output-body { padding: 0 !important; max-width: 100% !important; }
+  .out-section { border: 1px solid #ccc !important; background: #fff !important;
+    border-radius: 4px !important; margin-bottom: 12pt !important; page-break-inside: avoid !important; }
+  .out-section-head { background: #f5f5f0 !important; padding: 8px 12px !important; cursor: default !important; }
+  .out-section-label { font-size: 9pt !important; color: #8B6914 !important; letter-spacing: .1em !important; }
+  .out-section-body { padding: 12px !important; border-top: 1px solid #ccc !important; }
+  .section-num { color: #999 !important; }
+  .score-num { font-size: 30pt !important; color: #8B6914 !important; }
+  .score-denom { color: #999 !important; font-size: 11pt !important; }
+  .score-reason { color: #555 !important; font-size: 10pt !important; }
+  .pros-cons-table { width: 100% !important; min-width: unset !important; }
+  .pct-head { background: #f5f5f0 !important; font-size: 8pt !important; padding: 5px 8px !important; }
+  .strength-h { color: #2d7a4f !important; }
+  .gap-h { color: #c0392b !important; }
+  .pct-row td { color: #333 !important; font-size: 10pt !important; padding: 6px 8px !important; background: #fff !important; border-bottom: 1px solid #eee !important; }
+  .pct-row td:first-child { border-right: 1px solid #ccc !important; }
+  .str-dot { background: #2d7a4f !important; }
+  .gap-dot { background: #c0392b !important; }
+  .open-intro { background: #f0f4ff !important; border-left: 3px solid #4a7ab5 !important; color: #1a1a1a !important; font-size: 10pt !important; padding: 8px !important; }
+  .open-sub-title { color: #2d7a7a !important; font-size: 8pt !important; border-bottom: 1px solid #ccc !important; }
+  .ob-text { color: #1a1a1a !important; font-size: 10pt !important; }
+  .ob-text em { color: #8B6914 !important; }
+  .ob-marker { background: #2d7a7a !important; }
+  .gap-section { border-top: 1px solid #ccc !important; }
+  .gap-title { color: #c0392b !important; font-size: 8pt !important; }
+  .gap-item { background: #fff5f5 !important; border-left: 3px solid #c0392b !important; }
+  .gap-name-text { color: #c0392b !important; font-size: 10pt !important; }
+  .gap-address-text { color: #333 !important; font-size: 10pt !important; }
+  .notice-pill { background: #f0fffc !important; border: 1px solid #2d7a7a !important; color: #2d7a7a !important; font-size: 8pt !important; }
+  .int-tag { color: #666 !important; font-size: 8pt !important; }
+  .int-val { color: #333 !important; font-size: 10pt !important; }
+  .int-val strong { color: #1a1a1a !important; }
+  .int-open-quote { background: #f0fffc !important; border-left: 3px solid #2d7a7a !important; color: #1a1a1a !important; font-size: 10pt !important; }
+  .int-avoid-box { background: #fff5f5 !important; border-left: 3px solid #c0392b !important; color: #333 !important; font-size: 10pt !important; }
+  .int-regen-note { background: #f5f5f0 !important; color: #666 !important; font-size: 8pt !important; }
+  .company-header { border-bottom: 1px solid #ccc !important; }
+  .company-header-name { color: #1a1a1a !important; font-size: 14pt !important; }
+  .company-header-meta { color: #888 !important; font-size: 8pt !important; }
+  .company-logo-box { background: #f5f5f0 !important; border: 1px solid #ccc !important; }
+  .cb-tag { color: #666 !important; font-size: 8pt !important; }
+  .cb-val { color: #333 !important; font-size: 10pt !important; }
+  .cb-val strong { color: #1a1a1a !important; }
+  .lang-pill { background: #f5f5f0 !important; border: 1px solid #ccc !important; color: #1a1a1a !important; font-size: 8pt !important; }
+  .lang-pill em { color: #8B6914 !important; }
+  .question-card { background: #f9f9f7 !important; border: 1px solid #ccc !important; }
+  .q-num { color: #8B6914 !important; font-size: 8pt !important; }
+  .q-text { color: #1a1a1a !important; font-size: 10pt !important; }
+  .q-signal { color: #555 !important; font-size: 9pt !important; border-top: 1px solid #eee !important; }
+  .q-arrow { color: #8B6914 !important; }
+  .flags-block { background: #fffef0 !important; border: 1px solid #e6cc6a !important; }
+  .flags-title { color: #8B6914 !important; font-size: 8pt !important; }
+  .flag-line { color: #444 !important; font-size: 9pt !important; border-bottom: 1px solid #eee !important; }
+  .flag-icon { color: #8B6914 !important; }
+  .cite-item { border-bottom: 1px solid #eee !important; }
+  .cite-n { color: #8B6914 !important; font-size: 9pt !important; }
+  .cite-claim { color: #1a1a1a !important; font-size: 10pt !important; }
+  .cite-url { color: #4a7ab5 !important; font-size: 8pt !important; }
+  .cite-archive-row { color: #888 !important; font-size: 7pt !important; }
+  .cite-badge { font-size: 7pt !important; border: 1px solid #ccc !important; }
+  .cite-sup { display: none !important; }
+  .conf { display: none !important; }
+  .pct-wrap { overflow: visible !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- LANDING -->
+<div id="screen-landing" class="screen active">
+  <nav class="landing-nav">
+    <div class="logo-mark">Job Interview Prep</div>
+    <div class="nav-tag">INTERVIEW INTELLIGENCE · INDIA</div>
+  </nav>
+  <div class="landing-hero">
+    <div class="hero-eyebrow">For Indian professionals</div>
+    <h1 class="hero-headline">Talented people don't<br>always crack interviews.<br><em>Prepared people do.</em></h1>
+    <p class="hero-sub">Walk into your next interview knowing more than the interviewer expects. Intelligence-led preparation built for India.</p>
+    <button class="cta-btn" onclick="startWizard()">Prepare My Brief →</button>
+    <div class="hero-cred">
+      <span>Sai Krishna Yallapu</span>
+      <div class="hero-cred-dot"></div>
+      <span>16 years · IT services</span>
+      <div class="hero-cred-dot"></div>
+      <span>2 ABM books</span>
+      <div class="hero-cred-dot"></div>
+      <span>40Under40 BW 2024</span>
+    </div>
+  </div>
+</div>
+
+<!-- WIZARD -->
+<div id="screen-wizard" class="screen">
+  <nav class="wizard-nav">
+    <button class="wizard-back" onclick="goBack()">← Back</button>
+    <div class="wizard-progress">
+      <div class="wp-dot active" id="dot-1"></div>
+      <div class="wp-dot" id="dot-2"></div>
+      <div class="wp-dot" id="dot-3"></div>
+      <div class="wp-dot" id="dot-4"></div>
+    </div>
+    <div class="wizard-step-label" id="step-label">Step 1 of 4</div>
+  </nav>
+  <div class="wizard-body">
+
+    <!-- STEP 1 -->
+    <div class="wstep active" id="step-1">
+      <h2 class="step-q">What are you preparing for?</h2>
+      <p class="step-hint">Choose the option that best describes where you are right now.</p>
+      <div class="wf-cards">
+        <div class="wf-card" id="wf-interview" onclick="selectWorkflow('interview',this)">
+          <div class="wf-icon">📅</div>
+          <div class="wf-title">I have an interview scheduled</div>
+          <div class="wf-desc">Get a full intelligence brief — company snapshot, interviewer profile, positioning, and smart questions.</div>
+          <div class="wf-badge badge-live">Available now</div>
+        </div>
+        <div class="wf-card disabled-wf" onclick="showComingSoon()">
+          <div class="wf-icon">📄</div>
+          <div class="wf-title">I want to apply to a position</div>
+          <div class="wf-desc">Match your CV to a JD — get a score, improvement suggestions, and a cover letter draft.</div>
+          <div class="wf-badge badge-soon">Coming soon</div>
+        </div>
+        <div class="wf-card disabled-wf" onclick="showComingSoon()">
+          <div class="wf-icon">🔍</div>
+          <div class="wf-title">I want to prepare for interviews</div>
+          <div class="wf-desc">Build general readiness — role assessment, practice questions, and CV health check.</div>
+          <div class="wf-badge badge-soon">Coming soon</div>
+        </div>
+      </div>
+      <div class="step-next">
+        <div></div>
+        <button class="btn-next" id="next-1" disabled onclick="goToStep(2)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="wstep" id="step-2">
+      <h2 class="step-q">Which company?</h2>
+      <p class="step-hint">The more you give us, the sharper your brief.</p>
+      <div class="field-group">
+        <div class="field-label">Company name <span style="color:var(--amber);margin-left:2px;">*</span></div>
+        <input type="text" class="field-input" id="company-name" placeholder="e.g. Infosys, Razorpay, HDFC Bank" oninput="checkStep2()">
+      </div>
+      <div class="field-group">
+        <div class="field-label">Company website <span class="field-optional">— optional</span></div>
+        <input type="text" class="field-input" id="company-url" placeholder="https://www.company.com">
+        <div class="field-tip">Adding the website lets us pull live signals — recent news, leadership statements, strategic priorities.</div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Industry <span class="field-optional">— optional</span></div>
+        <select class="field-input field-select" id="industry" onchange="toggleOtherIndustry()">
+          <option value="">Select if not obvious from company name</option>
+          <option>Banking and Financial Services</option>
+          <option>Consulting</option>
+          <option>Energy and Utilities</option>
+          <option>Healthcare and Life Sciences</option>
+          <option>Information Technology</option>
+          <option>Manufacturing</option>
+          <option>Retail and Consumer</option>
+          <option>Telecom</option>
+          <option>Other</option>
+        </select>
+        <input type="text" class="field-input other-text" id="industry-other" placeholder="Please specify your industry">
+      </div>
+      <div class="step-next">
+        <button class="btn-skip" onclick="goToStep(3)">Skip →</button>
+        <button class="btn-next" id="next-2" disabled onclick="goToStep(3)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="wstep" id="step-3">
+      <h2 class="step-q">Upload your CV</h2>
+      <p class="step-hint">PDF or image. Your data never leaves this session — nothing is stored, nothing is saved.</p>
+      <div class="upload-zone" id="upload-zone">
+        <input type="file" id="cv-file" class="upload-input" accept=".pdf,.png,.jpg,.jpeg" onchange="handleFileUpload(this)">
+        <div class="upload-icon">📎</div>
+        <div class="upload-title">Drag and drop your CV here</div>
+        <div class="upload-sub">or click to browse</div>
+        <div class="upload-formats">PDF · JPG · PNG</div>
+      </div>
+      <div id="file-chosen" class="file-chosen" style="display:none;">
+        <span class="file-name" id="file-name-display">—</span>
+        <button class="file-remove" onclick="removeFile(event)">Remove</button>
+      </div>
+      <div class="privacy-note">Your CV never leaves this session. Nothing is stored. Nothing is saved.</div>
+      <div class="step-next">
+        <div></div>
+        <button class="btn-next" id="next-3" disabled onclick="goToStep(4)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="wstep" id="step-4">
+      <h2 class="step-q">Interview details</h2>
+      <p class="step-hint">All optional — every detail sharpens your brief significantly.</p>
+      <div class="field-row">
+        <div class="field-group">
+          <div class="field-label">Role applied for <span class="field-optional">— optional</span></div>
+          <input type="text" class="field-input" id="role" placeholder="e.g. Marketing Head">
+        </div>
+        <div class="field-group">
+          <div class="field-label">Anything else we should know? <span class="field-optional">— optional</span></div>
+          <textarea class="field-input field-textarea" id="extra-context" style="min-height:80px;" placeholder="e.g. This role is for their new GCC in Hyderabad. The company is going through a restructure. This is a newly created position."></textarea>
+        </div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Job description <span class="field-optional">— optional</span></div>
+        <textarea class="field-input field-textarea" id="jd" placeholder="Paste the job description here — sharpens every section of your brief significantly."></textarea>
+        <div class="field-tip">Candidates who paste the JD get a significantly sharper brief.</div>
+      </div>
+      <div class="field-group">
+        <div class="field-label" style="margin-bottom:12px;">Who is interviewing you? <span class="field-optional">— optional</span></div>
+        <div class="radio-group">
+          <div class="radio-opt" id="ri-know" onclick="selectInterviewer('know',this)">
+            <div class="radio-dot"></div>
+            <div style="flex:1;">
+              <div class="radio-label">I know their details
+                <span>Name, role, LinkedIn — sharpest profile possible</span>
+              </div>
+              <div class="interviewer-fields" id="fields-know">
+                <div class="field-row" style="margin-top:0;">
+                  <div class="field-group" style="margin-bottom:12px;">
+                    <div class="field-label" style="font-size:9px;">Name</div>
+                    <input type="text" class="field-input" id="int-name" placeholder="Interviewer name" style="font-size:12px;padding:9px 12px;">
+                  </div>
+                  <div class="field-group" style="margin-bottom:12px;">
+                    <div class="field-label" style="font-size:9px;">Role</div>
+                    <input type="text" class="field-input" id="int-role-field" placeholder="e.g. VP Marketing" style="font-size:12px;padding:9px 12px;">
+                  </div>
+                </div>
+                <div class="field-group" style="margin-bottom:0;">
+                  <div class="field-label" style="font-size:9px;">LinkedIn URL <span class="field-optional">— optional</span></div>
+                  <input type="text" class="field-input" id="int-linkedin" placeholder="https://linkedin.com/in/..." style="font-size:12px;padding:9px 12px;">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="radio-opt" id="ri-skip" onclick="selectInterviewer('skip',this)">
+            <div class="radio-dot"></div>
+            <div class="radio-label">I don't know yet — skip this
+              <span>We'll use company-type defaults for the interviewer section</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="step-next">
+        <button class="btn-skip" onclick="startGeneration()">Skip & Generate →</button>
+        <button class="btn-next" onclick="startGeneration()">Generate My Brief →</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- GENERATING -->
+<div id="screen-generating" class="screen">
+  <div class="gen-logo">Job Interview Prep</div>
+  <div class="gen-company" id="gen-company-name">—</div>
+  <div class="gen-role" id="gen-role-name">—</div>
+  <div class="gen-steps">
+    <div class="gen-step" id="gs-1"><div class="gs-icon">📖</div><div class="gs-label">Reading your CV</div></div>
+    <div class="gen-step" id="gs-2"><div class="gs-icon">🔍</div><div class="gs-label">Researching the company</div></div>
+    <div class="gen-step" id="gs-3"><div class="gs-icon">⚡</div><div class="gs-label">Analysing recent signals</div></div>
+    <div class="gen-step" id="gs-4"><div class="gs-icon">🎯</div><div class="gs-label">Building your positioning</div></div>
+    <div class="gen-step" id="gs-5"><div class="gs-icon">💡</div><div class="gs-label">Generating smart questions</div></div>
+  </div>
+  <div class="gen-time" id="gen-time">This takes about 20–30 seconds</div>
+  <div id="gen-preparing" style="display:none;margin-top:24px;text-align:center;">
+    <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--amber);letter-spacing:.12em;margin-bottom:8px;">PREPARING YOUR BRIEF</div>
+    <div style="font-size:13px;color:var(--muted);">Assembling all sections...</div>
+  </div>
+  <div class="gen-error" id="gen-error"></div>
+</div>
+
+<!-- OUTPUT -->
+<div id="screen-output" class="screen">
+  <nav class="output-nav">
+    <div class="output-meta">
+      <div class="output-company-name" id="out-title">—</div>
+      <div class="output-company-sub">INTELLIGENCE BRIEF · JOB INTERVIEW PREP · <span id="brief-date"></span></div>
+    </div>
+    <div class="output-actions">
+      <button class="btn-restart" onclick="restartTool()">← Start Over</button>
+      <button class="btn-download" id="dl-btn" onclick="downloadPDF()">↓ Download PDF</button>
+    </div>
+  </nav>
+  <div class="output-body" id="brief-content">
+    <!-- Dynamically populated -->
+  </div>
+</div>
+
+<script>
+// ── STATE ──────────────────────────────────────────
+let currentStep = 1;
+let cvFile = null;
+let cvBase64 = null;
+let cvMediaType = null;
+let briefData = null;
+let genStepInterval = null;
+
+// ── UTILS ──────────────────────────────────────────
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function esc(str) {
+  return String(str)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;');
+}
+
+// Convert inline citation markers to styled superscripts
+function renderCitations(text) {
+  return text
+    .replace(/\[CV\]/g, '<sup class="cite-sup" title="Source: Candidate CV">[CV]</sup>')
+    .replace(/\[CANDIDATE\]/g, '<sup class="cite-sup" title="Source: Candidate-provided context">[C]</sup>')
+    .replace(/\[(\d+[a-z]?)\]/g, '<sup class="cite-sup" title="See source [$1]">[$1]</sup>');
+}
+
+// Convert confidence markers
+function renderConfidence(text) {
+  return text
+    .replace(/✓\s*VERIFIED/g, '<span class="conf conf-v">✓ VERIFIED</span>')
+    .replace(/~\s*INFERRED/g, '<span class="conf conf-i">~ INFERRED</span>')
+    .replace(/✓/g, '<span class="conf conf-v">✓</span>')
+    .replace(/~/g, '<span class="conf conf-i">~</span>');
+}
+
+function processText(text) {
+  return renderCitations(renderConfidence(esc(text)));
+}
+
+// ── NAVIGATION ─────────────────────────────────────
+function startWizard() { show('screen-wizard'); }
+
+function goBack() {
+  if (currentStep === 1) { show('screen-landing'); return; }
+  goToStep(currentStep - 1);
+}
+
+function goToStep(n) {
+  document.getElementById('step-' + currentStep).classList.remove('active');
+  document.getElementById('dot-' + currentStep).classList.remove('active');
+  document.getElementById('dot-' + currentStep).classList.add('done');
+  currentStep = n;
+  document.getElementById('step-' + n).classList.add('active');
+  document.getElementById('dot-' + n).classList.add('active');
+  document.getElementById('step-label').textContent = 'Step ' + n + ' of 4';
+  window.scrollTo(0, 0);
+}
+
+function showComingSoon() {
+  alert('This workflow is coming soon. Use "I have an interview scheduled" to try the tool today.');
+}
+
+// ── STEP 1 ─────────────────────────────────────────
+function selectWorkflow(type, el) {
+  document.querySelectorAll('.wf-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  if (type === 'interview') {
+    setTimeout(() => goToStep(2), 300);
+  }
+}
+
+// ── STEP 2 ─────────────────────────────────────────
+function checkStep2() {
+  document.getElementById('next-2').disabled = !document.getElementById('company-name').value.trim();
+}
+
+function toggleOtherIndustry() {
+  const v = document.getElementById('industry').value;
+  document.querySelector('.other-text').style.display = v === 'Other' ? 'block' : 'none';
+}
+
+// ── STEP 3 ─────────────────────────────────────────
+function handleFileUpload(input) {
+  if (!input.files || !input.files[0]) return;
+  cvFile = input.files[0];
+
+  const maxSize = 10 * 1024 * 1024; // 10MB
+  if (cvFile.size > maxSize) {
+    alert('File is too large. Please upload a file under 10MB.');
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const result = e.target.result;
+    // result is data:mediatype;base64,DATA
+    const commaIdx = result.indexOf(',');
+    cvBase64 = result.substring(commaIdx + 1);
+    cvMediaType = cvFile.type || (cvFile.name.endsWith('.pdf') ? 'application/pdf' : 'image/jpeg');
+
+    document.getElementById('file-name-display').textContent = cvFile.name;
+    document.getElementById('file-chosen').style.display = 'flex';
+    document.getElementById('upload-zone').classList.add('has-file');
+    document.getElementById('next-3').disabled = false;
+  };
+  reader.readAsDataURL(cvFile);
+}
+
+function removeFile(e) {
+  if (e) e.stopPropagation();
+  cvFile = null; cvBase64 = null; cvMediaType = null;
+  document.getElementById('cv-file').value = '';
+  document.getElementById('file-chosen').style.display = 'none';
+  document.getElementById('upload-zone').classList.remove('has-file');
+  document.getElementById('next-3').disabled = true;
+}
+
+// ── STEP 4 ─────────────────────────────────────────
+function selectInterviewer(type, el) {
+  document.querySelectorAll('.radio-opt').forEach(r => r.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('fields-know').classList.toggle('open', type === 'know');
+}
+
+// ── GENERATION ─────────────────────────────────────
+function startGeneration() {
+  const companyName = document.getElementById('company-name').value.trim() || 'Company';
+  const role = document.getElementById('role').value.trim() || 'Role';
+
+  document.getElementById('gen-company-name').textContent = companyName;
+  document.getElementById('gen-role-name').textContent = role.toUpperCase();
+  document.getElementById('gen-error').style.display = 'none';
+
+  show('screen-generating');
+  animateGenSteps();
+  callAPI();
+}
+
+function animateGenSteps() {
+  const steps = ['gs-1','gs-2','gs-3','gs-4','gs-5'];
+  let i = 0;
+  genStepInterval = setInterval(() => {
+    if (i > 0) {
+      const prev = document.getElementById(steps[i-1]);
+      prev.classList.remove('active');
+      prev.classList.add('done');
+      prev.querySelector('.gs-icon').textContent = '✓';
+    }
+    if (i < steps.length) {
+      document.getElementById(steps[i]).classList.add('active');
+      i++;
+    } else {
+      // All steps animated — keep last step active and show waiting message
+      clearInterval(genStepInterval);
+      const last = document.getElementById(steps[steps.length-1]);
+      last.classList.add('active');
+      last.querySelector('.gs-icon').textContent = '⟳';
+      const timeEl = document.getElementById('gen-time');
+      if (timeEl) timeEl.textContent = 'Almost done — finalising your brief...';
+    }
+  }, 3500);
+}
+
+async function callAPI() {
+  const payload = {
+    cvBase64: cvBase64,
+    cvMediaType: cvMediaType,
+    companyName: document.getElementById('company-name').value.trim(),
+    companyUrl: document.getElementById('company-url').value.trim(),
+    industry: document.getElementById('industry').value === 'Other'
+      ? document.getElementById('industry-other').value.trim()
+      : document.getElementById('industry').value,
+    role: document.getElementById('role').value.trim(),
+    jd: document.getElementById('jd').value.trim(),
+    extraContext: document.getElementById('extra-context').value.trim(),
+    interviewerName: document.getElementById('int-name').value.trim(),
+    interviewerRole: document.getElementById('int-role-field').value.trim(),
+    interviewerLinkedin: document.getElementById('int-linkedin').value.trim()
+  };
+
+  try {
+    const response = await fetch('/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    clearInterval(genStepInterval);
+
+    // Mark all steps done
+    ['gs-1','gs-2','gs-3','gs-4','gs-5'].forEach(id => {
+      const el = document.getElementById(id);
+      el.classList.remove('active');
+      el.classList.add('done');
+      el.querySelector('.gs-icon').textContent = '✓';
+    });
+
+    const data = await response.json();
+
+    if (!response.ok || data.error) {
+      showGenError(data.error || 'An error occurred. Please try again.');
+      return;
+    }
+
+    briefData = data.brief;
+    // Show preparing state — hide steps, show assembling message
+    document.getElementById('gen-preparing').style.display = 'block';
+    document.getElementById('gen-time').style.display = 'none';
+    document.querySelector('.gen-steps').style.display = 'none';
+    setTimeout(() => renderAndShowBrief(), 1500);
+
+  } catch (err) {
+    clearInterval(genStepInterval);
+    showGenError('Network error. Please check your connection and try again.');
+  }
+}
+
+function showGenError(msg) {
+  const errEl = document.getElementById('gen-error');
+  errEl.textContent = '⚠ ' + msg;
+  errEl.style.display = 'block';
+  // Reset steps
+  ['gs-1','gs-2','gs-3','gs-4','gs-5'].forEach(id => {
+    document.getElementById(id).classList.remove('active','done');
+  });
+}
+
+// ── RENDER BRIEF ───────────────────────────────────
+function renderAndShowBrief() {
+  const b = briefData;
+  const companyName = document.getElementById('company-name').value.trim() || 'Company';
+  const role = document.getElementById('role').value.trim() || 'Role';
+
+  document.getElementById('out-title').textContent = companyName + ' · ' + role;
+  document.getElementById('brief-date').textContent = new Date().toLocaleDateString('en-IN', {
+    day: 'numeric', month: 'long', year: 'numeric'
+  }).toUpperCase();
+
+  const body = document.getElementById('brief-content');
+  body.innerHTML = '';
+
+  // Build sections
+  body.appendChild(buildPositioningSection(b.positioning));
+  body.appendChild(buildHowToOpenSection(b.how_to_open));
+  body.appendChild(buildInterviewerSection(b.about_interviewer, companyName));
+  body.appendChild(buildCompanySection(b.about_company, companyName));
+  body.appendChild(buildQuestionsSection(b.questions));
+  body.appendChild(buildCitationsSection(b.citations));
+  body.appendChild(buildFlagsBlock(b.flags));
+  body.appendChild(buildFeedbackBlock());
+
+  show('screen-output');
+}
+
+// ── SECTION BUILDERS ───────────────────────────────
+
+function makeSection(num, label, bodyHTML) {
+  const sec = document.createElement('div');
+  sec.className = 'out-section';
+  sec.innerHTML = `
+    <div class="out-section-head" onclick="this.parentElement.classList.toggle('collapsed')">
+      <div class="out-section-label"><span class="section-num">${num} —</span> ${label}</div>
+      <div class="out-section-toggle">▼</div>
+    </div>
+    <div class="out-section-body">${bodyHTML}</div>`;
+  return sec;
+}
+
+function buildPositioningSection(text) {
+  if (!text) return makeSection('01', 'Positioning Score', '<p class="brief-text">No positioning data available.</p>');
+
+  // Parse SCORE: X/10
+  const scoreMatch = text.match(/SCORE:\s*([0-9.]+)\s*\/\s*10/i);
+  const score = scoreMatch ? scoreMatch[1] : '—';
+
+  // Parse REASON:
+  const reasonMatch = text.match(/REASON:\s*(.+?)(?:\n|$)/i);
+  const reason = reasonMatch ? reasonMatch[1].trim() : '';
+
+  // Parse table rows
+  const tableMatch = text.match(/\|[^|]+\|[^|]+\|\n\|[-|]+\|\n([\s\S]+?)(?:\n\n|$)/);
+  let tableRows = '';
+  if (tableMatch) {
+    const rows = tableMatch[1].trim().split('\n').filter(r => r.trim() && r.includes('|'));
+    rows.forEach(row => {
+      const cells = row.split('|').map(c => c.trim()).filter(c => c);
+      if (cells.length >= 2) {
+        tableRows += `<tr class="pct-row">
+          <td><span class="str-dot"></span>${processText(cells[0])}</td>
+          <td><span class="gap-dot"></span>${processText(cells[1])}</td>
+        </tr>`;
+      }
+    });
+  }
+
+  const html = `
+    <div class="score-row">
+      <div class="score-num">${esc(score)}</div>
+      <div class="score-denom">/ 10</div>
+    </div>
+    <div class="score-reason">${processText(reason)}</div>
+    <div class="pct-wrap">
+      <table class="pros-cons-table">
+        <thead><tr>
+          <th class="pct-head strength-h">✓ Strength</th>
+          <th class="pct-head gap-h">✗ Gap</th>
+        </tr></thead>
+        <tbody>${tableRows}</tbody>
+      </table>
+    </div>`;
+  return makeSection('01', 'Positioning Score', html);
+}
+
+function buildHowToOpenSection(text) {
+  if (!text) return makeSection('02', 'How to Open the Conversation', '<p class="brief-text">No data available.</p>');
+
+  // Parse INTRODUCTION
+  const introMatch = text.match(/INTRODUCTION:\n([\s\S]+?)(?=\n\nWHY I WANT|\nWHY I WANT)/i);
+  const intro = introMatch ? introMatch[1].trim() : '';
+
+  // Parse WHY I WANT TO WORK HERE bullets
+  const whyMatch = text.match(/WHY I WANT TO WORK HERE:\n([\s\S]+?)(?=\n\nHOW AM I|\nHOW AM I)/i);
+  const whyBullets = whyMatch ? parseBullets(whyMatch[1]) : [];
+
+  // Parse HOW AM I THE RIGHT PERSON bullets
+  const howMatch = text.match(/HOW AM I THE RIGHT PERSON.*?:\n([\s\S]+?)(?=\n\nCLOSING|\nCLOSING)/i);
+  const howBullets = howMatch ? parseBullets(howMatch[1]) : [];
+
+  // Parse CLOSING bullets
+  const closingMatch = text.match(/CLOSING:\n([\s\S]+?)(?=\n\nGAP|\nGAP)/i);
+  const closingBullets = closingMatch ? parseBullets(closingMatch[1]) : [];
+
+  // Parse GAP
+  const gapNameMatch = text.match(/GAP:\nNAME:\s*(.+?)(?:\n|$)/i);
+  const gapAddrMatch = text.match(/ADDRESS:\s*(.+?)(?:\n|$)/i);
+  const gapName = gapNameMatch ? gapNameMatch[1].trim() : '';
+  const gapAddr = gapAddrMatch ? gapAddrMatch[1].trim() : '';
+
+  // Parse NOTICE
+  const noticeMatch = text.match(/NOTICE:\s*(.+?)(?:\n|$)/i);
+  const notice = noticeMatch ? noticeMatch[1].trim() : '';
+
+  let html = '';
+
+  if (intro) {
+    html += `<div class="open-sub-title" style="margin-bottom:8px;">Introduction</div>
+    <div class="open-intro">${processText(intro)}</div>`;
+  }
+
+  if (whyBullets.length) {
+    html += `<div class="open-subsection">
+      <div class="open-sub-title">Why I want to work here</div>
+      ${whyBullets.map(b => `<div class="open-bullet"><div class="ob-marker"></div><div class="ob-text">${processText(b)}</div></div>`).join('')}
+    </div>`;
+  }
+
+  if (howBullets.length) {
+    html += `<div class="open-subsection">
+      <div class="open-sub-title">How am I the right person for this role</div>
+      ${howBullets.map(b => `<div class="open-bullet"><div class="ob-marker"></div><div class="ob-text">${processText(b)}</div></div>`).join('')}
+    </div>`;
+  }
+
+  if (closingBullets.length) {
+    html += `<div class="open-subsection" style="margin-bottom:0;">
+      <div class="open-sub-title">Closing points</div>
+      ${closingBullets.map(b => `<div class="open-bullet"><div class="ob-marker"></div><div class="ob-text">${processText(b)}</div></div>`).join('')}
+    </div>`;
+  }
+
+  if (gapName || gapAddr) {
+    html += `<div class="gap-section">
+      <div class="gap-title">Gap to address</div>
+      <div class="gap-item">
+        <div class="gap-marker">⚑</div>
+        <div>
+          <div class="gap-name-text">${processText(gapName)}</div>
+          <div class="gap-address-text">${processText(gapAddr)}</div>
+        </div>
+      </div>`;
+    if (notice) {
+      html += `<div class="notice-row"><div class="notice-pill">🟢 ${processText(notice)}</div></div>`;
+    }
+    html += `</div>`;
+  }
+
+  return makeSection('02', 'How to Open the Conversation', html);
+}
+
+function buildInterviewerSection(text, companyName) {
+  if (!text) return makeSection('03', 'Know Your Interviewer', '<p class="brief-text">No interviewer data available.</p>');
+
+  const fields = parseKeyValueBlock(text, ['WHO','CARES','OPEN','CONNECT','AVOID','NOTE']);
+  let html = '';
+
+  const rows = [
+    { key: 'WHO', label: 'Who they are' },
+    { key: 'CARES', label: 'What they care about' },
+    { key: 'CONNECT', label: 'Connect on' },
+    { key: 'AVOID', label: 'What to avoid' }
+  ];
+
+  rows.forEach(r => {
+    if (fields[r.key]) {
+      const isAvoid = r.key === 'AVOID';
+      const valHtml = processText(fields[r.key]);
+      html += `<div class="int-bullet">
+        <div class="int-tag">${r.label}</div>
+        <div class="int-val ${isAvoid ? '' : ''}">
+          ${isAvoid ? `<div class="int-avoid-box">${valHtml}</div>` : valHtml}
+        </div>
+      </div>`;
+    }
+  });
+
+  if (fields['OPEN']) {
+    // Insert after CARES
+    const openHtml = `<div class="int-bullet">
+      <div class="int-tag">How to open</div>
+      <div class="int-val"><div class="int-open-quote">${processText(fields['OPEN'].replace(/^"|"$/g,'').replace(/^'|'$/g,''))}</div></div>
+    </div>`;
+    // Find position after CARES in html and insert
+    // Simpler: just append
+    html += openHtml;
+  }
+
+  if (fields['NOTE']) {
+    html += `<div class="int-regen-note">⚑ ${processText(fields['NOTE'])}</div>`;
+  }
+
+  return makeSection('03', 'Know Your Interviewer', html);
+}
+
+function buildCompanySection(text, companyName) {
+  if (!text) return makeSection('04', 'About Company', '<p class="brief-text">No company data available.</p>');
+
+  const companyUrl = document.getElementById('company-url').value.trim();
+  const domain = companyUrl ? companyUrl.replace(/https?:\/\/(www\.)?/,'').split('/')[0] : '';
+
+  let logoHtml = '';
+  if (domain) {
+    logoHtml = `<div class="company-logo-box">
+      <img src="https://www.google.com/s2/favicons?domain=${esc(domain)}&sz=64" alt="${esc(companyName)}" onerror="this.parentElement.innerHTML='<span class=\\'company-logo-fallback\\'>${esc(companyName.substring(0,2).toUpperCase())}</span>'">
+    </div>`;
+  } else {
+    logoHtml = `<div class="company-logo-box"><span class="company-logo-fallback">${esc(companyName.substring(0,2).toUpperCase())}</span></div>`;
+  }
+
+  const header = `<div class="company-header">
+    ${logoHtml}
+    <div>
+      <div class="company-header-name">${esc(companyName)}</div>
+      <div class="company-header-meta">${esc(domain || 'Company')}</div>
+    </div>
+  </div>`;
+
+  const fields = parseKeyValueBlock(text, ['PRIORITY','PROBLEM','INSIGHT','LANGUAGE']);
+  let html = header;
+
+  if (fields['PRIORITY']) {
+    html += `<div class="company-bullet">
+      <div class="cb-tag">Current priority</div>
+      <div class="cb-val">${processText(fields['PRIORITY'])}</div>
+    </div>`;
+  }
+  if (fields['PROBLEM']) {
+    html += `<div class="company-bullet">
+      <div class="cb-tag">Why this role exists</div>
+      <div class="cb-val">${processText(fields['PROBLEM'])}</div>
+    </div>`;
+  }
+  if (fields['INSIGHT']) {
+    html += `<div class="company-bullet">
+      <div class="cb-tag">What others won't know</div>
+      <div class="cb-val">${processText(fields['INSIGHT'])}</div>
+    </div>`;
+  }
+  if (fields['LANGUAGE']) {
+    const langLines = fields['LANGUAGE'].split('\n').map(l => l.replace(/^-\s*/,'')).filter(l => l.trim());
+    const pills = langLines.map(l => {
+      const m = l.match(/"([^"]+)"\s*—\s*(.+)/);
+      if (m) return `<div class="lang-pill"><em>"${esc(m[1])}"</em> — ${esc(m[2])}</div>`;
+      return `<div class="lang-pill">${processText(l)}</div>`;
+    }).join('');
+    html += `<div class="company-bullet">
+      <div class="cb-tag">Use their language</div>
+      <div class="cb-val"><div class="lang-pills">${pills}</div></div>
+    </div>`;
+  }
+
+  return makeSection('04', 'About Company', html);
+}
+
+function buildQuestionsSection(text) {
+  if (!text) return makeSection('05', 'Questions That Make You Look Smart', '<p class="brief-text">No questions available.</p>');
+
+  // Split by Q:
+  const qBlocks = text.split(/\n(?=Q:)/i).filter(b => b.trim());
+  let html = '';
+
+  qBlocks.forEach((block, i) => {
+    const qMatch = block.match(/Q:\s*([\s\S]+?)(?=\n↳|\n\n|$)/i);
+    const sigMatch = block.match(/↳\s*(.+?)(?:\n|$)/i);
+
+    if (qMatch) {
+      html += `<div class="question-card">
+        <div class="q-num">Q 0${i+1}</div>
+        <div class="q-text">${processText(qMatch[1].trim())}</div>
+        ${sigMatch ? `<div class="q-signal"><span class="q-arrow">↳</span>${processText(sigMatch[1].trim())}</div>` : ''}
+      </div>`;
+    }
+  });
+
+  return makeSection('05', 'Questions That Make You Look Smart', html || '<p class="brief-text">No questions generated.</p>');
+}
+
+function buildCitationsSection(text) {
+  if (!text) return makeSection('06', 'Sources', '<p class="brief-text">No citations available.</p>');
+
+  const lines = text.split('\n');
+  let html = '';
+  let current = null;
+
+  lines.forEach(line => {
+    const trimmed = line.trim();
+    if (!trimmed) return;
+
+    // New citation entry: [CV], [CANDIDATE], [1], [2b], etc.
+    const citeStart = trimmed.match(/^\[([^\]]+)\]\s*(.*)/);
+    if (citeStart) {
+      if (current) html += renderCiteItem(current);
+      current = { key: citeStart[1], rest: citeStart[2], url: '', archive: '' };
+    } else if (current && trimmed.startsWith('URL:')) {
+      current.url = trimmed.replace('URL:', '').trim();
+    } else if (current && trimmed.startsWith('Archive:')) {
+      current.archive = trimmed.replace('Archive:', '').trim();
+    } else if (current) {
+      current.rest += ' ' + trimmed;
+    }
+  });
+  if (current) html += renderCiteItem(current);
+
+  return makeSection('06', 'Sources', html || '<p class="brief-text">No sources listed.</p>');
+}
+
+function renderCiteItem(c) {
+  const key = c.key;
+  let badgeHtml = '';
+  if (key === 'CV') badgeHtml = '<span class="cite-badge" style="background:rgba(79,142,247,.1);color:#4f8ef7;">CV</span>';
+  else if (key === 'CANDIDATE') badgeHtml = '<span class="cite-badge cb-candidate">CANDIDATE</span>';
+  else {
+    const restLower = c.rest.toLowerCase();
+    if (restLower.includes('primary')) badgeHtml += '<span class="cite-badge cb-primary">PRIMARY</span>';
+    if (restLower.includes('inferred')) badgeHtml += '<span class="cite-badge cb-inferred">INFERRED</span>';
+    if (restLower.includes('fresh')) badgeHtml += '<span class="cite-badge fresh-b">FRESH</span>';
+    if (restLower.includes('recent')) badgeHtml += '<span class="cite-badge" style="background:rgba(212,168,67,.08);color:var(--amber);">RECENT</span>';
+    if (restLower.includes('dated') || restLower.includes('old')) badgeHtml += '<span class="cite-badge dated-b">DATED</span>';
+  }
+
+  // Extract claim (strip badge keywords)
+  const claimText = c.rest.split('·')[0].trim();
+
+  return `<div class="cite-item">
+    <div class="cite-top">
+      <span class="cite-n">[${esc(key)}]</span>
+      <span class="cite-claim">${processText(claimText)}</span>
+      ${badgeHtml}
+    </div>
+    ${c.url ? `<a class="cite-url" href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.url)}</a>` : ''}
+    ${c.archive ? `<div class="cite-archive-row">Archive: <a class="cite-url" href="${esc(c.archive)}" target="_blank" rel="noopener" style="font-size:9px;">${esc(c.archive)}</a></div>` : ''}
+    ${!c.url && key !== 'CV' ? `<div style="font-size:12px;color:var(--muted);margin-top:4px;">${processText(c.rest.includes('·') ? c.rest.split('·').slice(1).join('·').trim() : '')}</div>` : ''}
+  </div>`;
+}
+
+function buildFlagsBlock(text) {
+  const wrap = document.createElement('div');
+  if (!text || !text.trim()) return wrap;
+
+  const flags = text.split('\n').filter(f => f.trim());
+  if (!flags.length) return wrap;
+
+  let html = `<div class="flags-block">
+    <div class="flags-title">⚑ Flags — Read before your interview</div>`;
+  flags.forEach(f => {
+    const icon = f.startsWith('?') ? '?' : '⚑';
+    html += `<div class="flag-line"><span class="flag-icon">${icon}</span>${processText(f.replace(/^[⚑?]\s*/,''))}</div>`;
+  });
+  html += `</div>`;
+  wrap.innerHTML = html;
+  return wrap;
+}
+
+function buildFeedbackBlock() {
+  const wrap = document.createElement('div');
+  wrap.innerHTML = `<div class="feedback-block" style="margin-top:24px;">
+    <div class="fb-title">Was this brief useful?</div>
+    <div class="fb-stars">
+      <button class="fb-star" onclick="selectFeedback(this)">★ Very useful</button>
+      <button class="fb-star" onclick="selectFeedback(this)">It was okay</button>
+      <button class="fb-star" onclick="selectFeedback(this)">Not really</button>
+    </div>
+    <textarea class="fb-input" placeholder="What was missing or could be better? Your feedback shapes the next version."></textarea>
+  </div>`;
+  return wrap;
+}
+
+// ── PARSE HELPERS ──────────────────────────────────
+function parseBullets(text) {
+  return text.split('\n')
+    .map(l => l.replace(/^[-•*]\s*/, '').trim())
+    .filter(l => l.length > 0);
+}
+
+function parseKeyValueBlock(text, keys) {
+  const result = {};
+  keys.forEach((key, i) => {
+    const nextKey = keys[i + 1];
+    const pattern = nextKey
+      ? new RegExp(key + ':\\s*([\\s\\S]+?)(?=\\n' + nextKey + ':|$)', 'i')
+      : new RegExp(key + ':\\s*([\\s\\S]+?)$', 'i');
+    const m = text.match(pattern);
+    if (m) result[key] = m[1].trim();
+  });
+  return result;
+}
+
+// ── PDF DOWNLOAD ────────────────────────────────────
+function downloadPDF() {
+  const companyName = document.getElementById('company-name').value.trim() || 'Company';
+  const role = document.getElementById('role').value.trim() || 'Role';
+  const dateStr = new Date().toLocaleDateString('en-IN', {day:'numeric',month:'long',year:'numeric'}).toUpperCase();
+
+  // Collect all section HTML
+  let sectionsHtml = '';
+  document.querySelectorAll('.out-section').forEach(sec => {
+    const label = sec.querySelector('.out-section-label')?.innerText?.trim() || '';
+    const body = sec.querySelector('.out-section-body');
+    if (!body || body.querySelector('.fb-input')) return;
+    sectionsHtml += '<div class="psec"><div class="psec-lbl">' + label + '</div><div class="psec-body">' + body.innerHTML + '</div></div>';
+  });
+
+  const html = `<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>${companyName} · ${role} — Interview Brief</title>
+<style>
+body{margin:0;padding:0;background:#fff;font-family:Georgia,serif;font-size:11pt;color:#1a1a1a;}
+.save-banner{background:#1a1a2e;color:#fff;padding:14px 20px;font-family:monospace;font-size:12px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+.save-banner-title{font-size:13px;font-weight:bold;color:#d4a843;margin-bottom:4px;}
+.save-steps{display:flex;gap:16px;flex-wrap:wrap;}
+.save-step{background:rgba(255,255,255,.08);border-radius:6px;padding:8px 12px;font-size:11px;}
+.save-step strong{display:block;color:#d4a843;margin-bottom:2px;}
+.save-btn{background:#d4a843;color:#1a1a2e;border:none;padding:10px 20px;border-radius:6px;font-family:monospace;font-size:11px;font-weight:bold;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;}
+@media(max-width:600px){.save-steps{flex-direction:column;gap:8px;}.save-banner{flex-direction:column;align-items:flex-start;}}
+.content{padding:20px 24px;max-width:760px;margin:0 auto;}
+.hdr{border-bottom:2px solid #8B6914;padding-bottom:12px;margin-bottom:18px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:8px;}
+.hdr-brand{font-family:monospace;font-size:8pt;letter-spacing:.15em;text-transform:uppercase;color:#8B6914;margin-bottom:3px;}
+.hdr-title{font-size:17pt;font-weight:bold;color:#1a1a1a;}
+.hdr-meta{font-family:monospace;font-size:8pt;color:#888;text-align:right;}
+.psec{border:1px solid #ccc;border-radius:4px;margin-bottom:14pt;page-break-inside:avoid;}
+.psec-lbl{background:#f5f5f0;padding:7px 12px;font-family:monospace;font-size:8pt;letter-spacing:.1em;text-transform:uppercase;color:#8B6914;font-weight:bold;border-bottom:1px solid #ccc;}
+.psec-body{padding:12px;}
+*{color:#1a1a1a!important;background:transparent!important;border-color:#ccc!important;}
+.save-banner,.save-banner *{color:#fff!important;background:transparent!important;}
+.save-banner{background:#1a1a2e!important;}
+.save-btn{background:#d4a843!important;color:#1a1a2e!important;}
+.save-banner-title{color:#d4a843!important;}
+.save-step strong{color:#d4a843!important;}
+.out-section-toggle,.cite-sup,.conf,.feedback-block{display:none!important;}
+.out-section.collapsed .out-section-body{display:block!important;}
+.score-num{font-size:28pt!important;color:#8B6914!important;}
+.score-denom{color:#999!important;font-size:11pt!important;}
+.score-reason{color:#555!important;font-size:10pt!important;}
+.pct-head{background:#f5f5f0!important;font-size:8pt!important;padding:5px 8px!important;}
+.strength-h{color:#2d7a4f!important;}.gap-h{color:#c0392b!important;}
+.pct-row td{font-size:10pt!important;padding:6px 8px!important;color:#333!important;border-bottom:1px solid #eee!important;vertical-align:top!important;}
+.pct-row td:first-child{border-right:1px solid #ccc!important;}
+.str-dot{background:#2d7a4f!important;}.gap-dot{background:#c0392b!important;}
+.open-intro{background:#f0f4ff!important;border-left:3px solid #4a7ab5!important;font-size:10pt!important;padding:8px!important;}
+.open-sub-title{color:#2d7a7a!important;font-size:8pt!important;border-bottom:1px solid #ccc!important;}
+.ob-text{font-size:10pt!important;color:#1a1a1a!important;}.ob-text em{color:#8B6914!important;}
+.ob-marker{background:#2d7a7a!important;}
+.gap-item{background:#fff5f5!important;border-left:3px solid #c0392b!important;padding:8px!important;}
+.gap-name-text{color:#c0392b!important;font-size:10pt!important;}
+.gap-address-text{font-size:10pt!important;color:#333!important;}
+.notice-pill{background:#f0fffc!important;border:1px solid #2d7a7a!important;color:#2d7a7a!important;font-size:8pt!important;}
+.int-tag{color:#666!important;font-size:8pt!important;min-width:85px!important;}
+.int-val{font-size:10pt!important;color:#333!important;}
+.int-open-quote{background:#f0fffc!important;border-left:3px solid #2d7a7a!important;font-size:10pt!important;padding:6px!important;}
+.int-avoid-box{background:#fff5f5!important;border-left:3px solid #c0392b!important;font-size:10pt!important;padding:6px!important;}
+.int-regen-note{background:#f5f5f0!important;font-size:8pt!important;padding:6px!important;}
+.company-header{border-bottom:1px solid #ccc!important;}
+.company-header-name{font-size:13pt!important;color:#1a1a1a!important;}
+.company-header-meta{color:#888!important;font-size:8pt!important;}
+.company-logo-box{background:#f5f5f0!important;border:1px solid #ccc!important;}
+.cb-tag{color:#666!important;font-size:8pt!important;min-width:85px!important;}
+.cb-val{font-size:10pt!important;color:#333!important;}
+.lang-pill{background:#f5f5f0!important;border:1px solid #ccc!important;font-size:8pt!important;padding:2px 6px!important;border-radius:3px!important;display:inline-block!important;margin:2px!important;}
+.lang-pill em{color:#8B6914!important;font-style:normal!important;}
+.question-card{background:#f9f9f7!important;border:1px solid #ccc!important;border-radius:3px!important;padding:8px!important;margin-bottom:8px!important;}
+.q-num{color:#8B6914!important;font-size:8pt!important;}.q-text{font-size:10pt!important;color:#1a1a1a!important;}
+.q-signal{font-size:9pt!important;color:#555!important;border-top:1px solid #eee!important;padding-top:6px!important;}
+.q-arrow{color:#8B6914!important;}
+.flags-block{background:#fffef0!important;border:1px solid #e6cc6a!important;border-radius:3px!important;padding:8px!important;}
+.flags-title{color:#8B6914!important;font-size:8pt!important;}
+.flag-line{font-size:9pt!important;color:#444!important;border-bottom:1px solid #eee!important;padding:3px 0!important;}
+.flag-icon{color:#8B6914!important;}
+.cite-n{color:#8B6914!important;font-size:9pt!important;}
+.cite-claim{font-size:10pt!important;color:#1a1a1a!important;}
+.cite-url{color:#4a7ab5!important;font-size:8pt!important;word-break:break-all!important;}
+.cite-archive-row{color:#888!important;font-size:7pt!important;}
+.cite-badge{font-size:7pt!important;}
+.section-num{color:#999!important;}
+.pct-wrap{overflow:visible!important;}
+.pros-cons-table{min-width:unset!important;width:100%!important;}
+@media print{.save-banner{display:none!important;}}
+</style>
+</head>
+<body>
+<div class="save-banner">
+  <div>
+    <div class="save-banner-title">Save this brief as PDF</div>
+    <div class="save-steps">
+      <div class="save-step"><strong>iPhone / iPad</strong>Share button → Print → Pinch out on preview</div>
+      <div class="save-step"><strong>Android</strong>Menu ⋮ → Print → Save as PDF</div>
+      <div class="save-step"><strong>Desktop</strong>Ctrl+P / Cmd+P → Save as PDF</div>
+    </div>
+  </div>
+  <button class="save-btn" onclick="window.print()">Print / Save PDF</button>
+</div>
+<div class="content">
+  <div class="hdr">
+    <div>
+      <div class="hdr-brand">Job Interview Prep · Intelligence Brief</div>
+      <div class="hdr-title">${companyName} · ${role}</div>
+    </div>
+    <div class="hdr-meta">${dateStr}<br>Built by Sai Krishna Yallapu · GTM Signal</div>
+  </div>
+  ${sectionsHtml}
+</div>
+</body>
+</html>`;
+
+  const blob = new Blob([html], { type: 'text/html' });
+  const url = URL.createObjectURL(blob);
+  const newTab = window.open(url, '_blank');
+  if (!newTab) {
+    alert('Please allow popups for this site, then click Download PDF again.');
+  }
+  setTimeout(() => URL.revokeObjectURL(url), 60000);
+}
+
+
+// ── MISC ────────────────────────────────────────────
+function toggleSection(id) {
+  document.getElementById(id).classList.toggle('collapsed');
+}
+
+function selectFeedback(el) {
+  document.querySelectorAll('.fb-star').forEach(s => s.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function restartTool() {
+  currentStep = 1; cvFile = null; cvBase64 = null; cvMediaType = null; briefData = null;
+  clearInterval(genStepInterval);
+
+  ['company-name','company-url','role','jd','extra-context','int-name','int-role-field','int-linkedin'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  document.getElementById('industry').value = '';
+  document.querySelectorAll('.wf-card').forEach(c => c.classList.remove('selected'));
+  document.querySelectorAll('.radio-opt').forEach(r => r.classList.remove('selected'));
+  document.getElementById('fields-know').classList.remove('open');
+  document.querySelector('.other-text').style.display = 'none';
+  removeFile();
+  document.querySelectorAll('.wp-dot').forEach((d, i) => {
+    d.classList.remove('active', 'done');
+    if (i === 0) d.classList.add('active');
+  });
+  document.querySelectorAll('.wstep').forEach((s, i) => {
+    s.classList.remove('active');
+    if (i === 0) s.classList.add('active');
+  });
+  ['gs-1','gs-2','gs-3','gs-4','gs-5'].forEach(id => {
+    const el = document.getElementById(id);
+    el.classList.remove('active','done');
+    el.querySelector('.gs-icon').textContent = ['📖','🔍','⚡','🎯','💡'][parseInt(id.split('-')[1])-1];
+  });
+  document.getElementById('next-1').disabled = true;
+  document.getElementById('next-2').disabled = true;
+  document.getElementById('next-3').disabled = true;
+  document.getElementById('step-label').textContent = 'Step 1 of 4';
+  document.getElementById('brief-content').innerHTML = '';
+  show('screen-wizard');
+}
+</script>
+</body>
+</html>
